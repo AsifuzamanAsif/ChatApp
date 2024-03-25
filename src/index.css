@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.form_main {
+  @apply h-[555px] w-[450px] flex flex-col items-center justify-center bg-white shadow-[0px_0px_40px_rgba(0,0,0,0.062)] relative overflow-hidden p-[30px] before:absolute before:content-[""] before:w-[300px] before:h-[300px] before:bg-[rgb(209,193,255)] before:rotate-45 before:left-[-180px] before:z-[1] before:shadow-[5px_5px_10px_rgba(0,0,0,0.082)] before:rounded-[30px] before:bottom-[30px];
+}
+.inputContainer {
+  @apply w-full relative flex items-center justify-center z-[2];
+}
+.inputIcon {
+  @apply absolute left-[3px];
+}
+.inputField {
+  @apply w-full h-[40px] bg-transparent text-[black] text-[0.8em] font-medium box-border mx-0 my-2.5 pl-[30px] border-b-2 border-b-[rgb(173,173,173)] border-[none] border-solid focus:border-b-2 focus:border-b-[rgb(199,114,255)] focus:border-solid;
+}
+.inputField:focus {
+  outline: none;
+}
+.inputField::placeholder {
+  @apply text-[rgb(80,80,80)] text-[1em] font-medium;
+}
+#button {
+  @apply z-[2] relative w-full bg-[rgb(162,104,255)] h-[30px] w-[150px] text-[white] text-[0.8em] font-medium tracking-[1px] cursor-pointer m-2.5 border-[none] hover:bg-[rgb(126,84,255)];
+}
+.forgotLink {
+  @apply z-[2] text-[0.7em] font-medium text-[rgb(44,24,128)] no-underline px-[15px] py-2 rounded-[30px];
+}
+.container {
+  @apply h-screen;
+}
+.nav-bar {
+  @apply w-full bg-[#2E2F3A] flex items-center justify-between;
+}
+.nav-bar a {
+  @apply text-[#6B6C7B] whitespace-nowrap select-none ml-2.5;
+}
+.close {
+  @apply w-10 h-10 flex justify-center items-center relative cursor-pointer;
+}
+.line {
+  @apply absolute w-5 h-[3px] bg-[#6B6C7B] rounded-[30px];
+}
+.line.one {
+  @apply rotate-45;
+}
+.line.two {
+  @apply rotate-[135deg];
+}
+.messages-area {
+  @apply bg-[green] w-full;
+}
+.sender-area {
+  @apply bg-[#343541] w-full h-[50px] flex;
+}
+.message {
+  @apply w-full h-[50px];
+}
+.message.one,
+.message.three,
+.message.five,
+.message.seven,
+.message.nine,
+.message.eleven,
+.message.thirteen,
+.message.fifteen {
+  @apply bg-[#2E2F3A];
+}
+.message.two,
+.message.four,
+.message.six,
+.message.eight,
+.message.ten,
+.message.twelve,
+.message.fourteen,
+.message.sixteen {
+  @apply bg-[#343541];
+}
+.send-img {
+  @apply w-[30px];
+}
+.send-input {
+  @apply flex h-10 w-[230px] text-[white] text-ellipsis whitespace-nowrap overflow-hidden ml-[5px] rounded-[7px] border-[none];
+  outline: none;
+  background: none;
+  background: none;
+}
+.send-input::placeholder {
+  @apply text-[#828E9E];
+}
+.input-place {
+  @apply flex flex-row items-center bg-[#40414F] h-10 w-full gap-[5px] border ml-2.5 mt-[15px] rounded-[7px] border-solid border-[#2E2F3A];
+}
+.send {
+  @apply w-full h-[30px] bg-[none] flex items-center justify-end cursor-pointer;
+}
+.send-icon {
+  @apply w-[17px];
+}
