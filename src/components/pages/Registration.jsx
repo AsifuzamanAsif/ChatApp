@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -41,6 +40,7 @@ const registration = () => {
           setName("");
           setemail("");
           setpassword("");
+          setUserError("")
           setTimeout(() => {
             navigate("/login");
           }, 3000);
@@ -113,12 +113,12 @@ const registration = () => {
               id="Email"
               placeholder="Email"
             />
+          </div>
             {userError.emailError && (
-              <p className="w-fit text-white bg-red-500 py-1 px-2 text-[10px]">
+              <p className="w-fit text-white bg-red-500 py-1 px-2 text-[10px] z-20">
                 {userError.emailError}
               </p>
             )}
-          </div>
           <div className="inputContainer">
             <svg
               className="inputIcon"
