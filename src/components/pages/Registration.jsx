@@ -40,19 +40,27 @@ const registration = () => {
           setName("");
           setemail("");
           setpassword("");
-          setUserError("")
+          setUserError("");
           setTimeout(() => {
             navigate("/login");
           }, 3000);
         })
         .catch((error) => {
+          console.log(error.code);
           if (error.code.includes("auth/invalid-email")) {
             setUserError({ emailError: "Invalid Email !" });
+          }
+          if (error.code.includes("auth/email-already-in-use")) {
+            setUserError({ emailError: "This Email-already-in-use" });
+          }
+          if (error.code.includes("auth/weak-password")) {
+            setUserError({
+              passwordError: "Password should be at least 6 characters",
+            });
           }
         });
     }
   };
-
   return (
     <section className=" bg-white flex justify-center ">
       <ToastContainer />
@@ -114,11 +122,11 @@ const registration = () => {
               placeholder="Email"
             />
           </div>
-            {userError.emailError && (
-              <p className="w-fit text-white bg-red-500 py-1 px-2 text-[10px] z-20">
-                {userError.emailError}
-              </p>
-            )}
+          {userError.emailError && (
+            <p className="w-fit text-white bg-red-500 py-1 px-2 text-[10px] z-20">
+              {userError.emailError}
+            </p>
+          )}
           <div className="inputContainer">
             <svg
               className="inputIcon"
@@ -139,7 +147,7 @@ const registration = () => {
               placeholder="Password"
             />
             {userError.passwordError && (
-              <p className="w-fit text-white bg-red-500 py-1 px-2 text-[10px]">
+              <p className="w-fit text-white bg-red-500 py-1 px-2 text-[10px] z-20">
                 {userError.passwordError}
               </p>
             )}
