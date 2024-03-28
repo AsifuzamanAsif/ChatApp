@@ -31,7 +31,7 @@ function Navber() {
           <li>
             <Link
               to="/Chat"
-              className="flex items-center gap-3 py-3 px-3 rounded-lg w-fit"
+              className="flex items-center gap-3 py-3 px-3 rounded-lg w-fit{ hover:bg-primary text-white rounded-lg}"
             >
               <IoChatboxOutline />
               <span>Chat</span>
