@@ -97,6 +97,43 @@
 .send-icon {
   @apply w-[17px];
 }
+body {
+  @apply bg-[#121214];
+}
+.wrap {
+  @apply w-full max-w-xs mx-auto my-0 mt-5;
+}
+.profile {
+  @apply text-center text-white;
+}
+.profile {
+  @apply flex items-center justify-center gap-3;
+}
+.photo {
+  @apply rounded-[50%];
+}
+.profile_name {
+  @apply font-primary block;
+}
+.at {
+  @apply text-[13px];
+}
+.links ul {
+  @apply m-0 p-0;
+  list-style: none;
+}
+.links ul li {
+  @apply mx-0 my-3.5;
+}
+.link {
+  @apply block bg-[#9466FF] text-center no-underline rounded transition-[ease] duration-[all] delay-[0.3s] text-white p-3.5 hover:opacity-90;
+}
 .card {
-  @apply w-[300px] h-[300px] bg-[#4158D0] bg-[linear-gradient(43deg,#4158D0_0%,#C850C0_46%,#FFCC70_100%)] shadow-[rgba(0,0,0,0.17)_0px_-23px_25px_0px_inset,rgba(0,0,0,0.15)_0px_-36px_30px_0px_inset,rgba(0,0,0,0.1)_0px_-79px_40px_0px_inset,rgba(0,0,0,0.06)_0px_2px_1px,rgba(0,0,0,0.09)_0px_4px_2px,rgba(0,0,0,0.09)_0px_8px_4px,rgba(0,0,0,0.09)_0px_16px_8px,rgba(0,0,0,0.09)_0px_32px_16px] rounded-2xl;
+  @apply bg-white rounded p-2.5;
+}
+.card h3 {
+  @apply text-[#202024] m-0;
+}
+.card p {
+  @apply text-[13px] text-[#202024] mx-0 my-[5px];
 }
