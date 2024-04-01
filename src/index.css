@@ -97,14 +97,11 @@
 .send-icon {
   @apply w-[17px];
 }
-body {
-  @apply bg-[#121214];
-}
 .wrap {
   @apply w-full max-w-xs mx-auto my-0 mt-5;
 }
 .profile {
-  @apply text-center text-white;
+  @apply text-center;
 }
 .profile {
   @apply flex items-center justify-center gap-3;

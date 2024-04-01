@@ -10,7 +10,7 @@ function User() {
         />
         <div className="pt-3 ">
           <span className="profile_name font-primary">Kelvin Queiróz</span>
-          <span className="at text-white">@_kelvinqueiroz</span>
+          <span className="at ">@_kelvinqueiroz</span>
         </div>
       </div>
       <div className="links">
