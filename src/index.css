@@ -98,7 +98,7 @@
   @apply w-[17px];
 }
 .wrap {
-  @apply w-full max-w-xs mx-auto my-0 mt-5;
+  @apply w-full max-w-xs mx-auto my-0 mt-5 h-72 rounded-md;
 }
 .profile {
   @apply text-center;
