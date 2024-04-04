@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   getAuth,
   createUserWithEmailAndPassword,
+  updateProfile,
   sendEmailVerification,
 } from "firebase/auth";
 import "react-toastify/dist/ReactToastify.css";
@@ -28,7 +29,11 @@ const registration = () => {
     } else if (password == "") {
       setUserError({ passwordError: "Password is Required !" });
     } else {
-      createUserWithEmailAndPassword(auth, email, password)
+      createUserWithEmailAndPassword(auth, email, password);
+      updateProfile(auth.currentUser, {
+        displayName: name,
+        photoURL: "https://example.com/jane-q-user/profile.jpg",
+      })
         .then(() => {
           sendEmailVerification(auth.currentUser);
           toast.success("Registration Successful !. Please Verify Your Email", {
