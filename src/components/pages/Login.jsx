@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getDatabase, ref, set } from "firebase/database";
 import { ToastContainer, toast } from "react-toastify";
 const Login = () => {
   const auth = getAuth();
+  const db = getDatabase();
   let navegite = useNavigate();
   const [emailError, setemailError] = useState("");
   const [passwordError, setpasswordError] = useState("");
@@ -27,6 +29,11 @@ const Login = () => {
               theme: "light",
             });
           } else {
+            set(ref(db, "users/" + res.user.uid), {
+              username: res.user.displayName,
+              email: res.user.email,
+              profile_picture: res.user?.photoURL,
+            });
             console.log("login susseccful", res);
             toast.success("Login susseccful", {
               position: "top-center",

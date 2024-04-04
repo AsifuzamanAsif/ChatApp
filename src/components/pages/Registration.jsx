@@ -29,26 +29,30 @@ const registration = () => {
     } else if (password == "") {
       setUserError({ passwordError: "Password is Required !" });
     } else {
-      createUserWithEmailAndPassword(auth, email, password);
-      updateProfile(auth.currentUser, {
-        displayName: name,
-        photoURL: "https://example.com/jane-q-user/profile.jpg",
-      })
+      createUserWithEmailAndPassword(auth, email, password)
         .then(() => {
           sendEmailVerification(auth.currentUser);
-          toast.success("Registration Successful !. Please Verify Your Email", {
-            position: "top-center",
-            autoClose: 5000,
-            closeOnClick: true,
-            theme: "light",
+          updateProfile(auth.currentUser, {
+            displayName: name,
+            photoURL: "/user.png",
+          }).then((res) => {
+            toast.success(
+              "Registration Successful !. Please Verify Your Email",
+              {
+                position: "top-center",
+                autoClose: 5000,
+                closeOnClick: true,
+                theme: "light",
+              }
+            );
+            setName("");
+            setemail("");
+            setpassword("");
+            setUserError("");
+            setTimeout(() => {
+              navigate("/login");
+            }, 3000);
           });
-          setName("");
-          setemail("");
-          setpassword("");
-          setUserError("");
-          setTimeout(() => {
-            navigate("/login");
-          }, 3000);
         })
         .catch((error) => {
           console.log(error.code);
