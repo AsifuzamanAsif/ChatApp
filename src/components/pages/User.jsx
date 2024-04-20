@@ -3,10 +3,7 @@ import React from "react";
     return (
       <div className="wrap font-primary bg-slate-600">
         <div className="profile ">
-          <img
-            src="https://images.unsplash.com/photo-1687462310643-e993a3f09102?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHByb3RhaXQlMjBpbWd8ZW58MHx8MHx8fDA%3D"
-            className="photo w-[80px] h-[80px]"
-          />
+          <img src="/user.png" className="w-[80px] h-[70px]" />
           <div className="pt-3 ">
             <span className="profile_name font-primary">Kelvin Queiróz</span>
             <span className="at ">@_kelvinqueiroz</span>
