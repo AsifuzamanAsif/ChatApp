@@ -4,9 +4,9 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import Home from "./components/pages/Home";
-import Registration from "./components/pages/Registration";
-import Login from "./components/pages/Login";
+import Home from "./assets/Pages/Home";
+import Registration from "./assets/Pages/Registration";
+import Login from "./assets/Pages/Login";
 import Layout from "./components/Layout";
 import Chat from "./components/pages/Chat";
 import User from "./components/pages/User";

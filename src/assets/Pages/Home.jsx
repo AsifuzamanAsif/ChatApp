@@ -1,10 +1,10 @@
 import React from "react";
-import MyGroupe from "../MyGroup";
-import Groups from "../Groups";
-import Friends from "../Friends";
-import Peoples from "../Peoples";
-import FrendRequests from "../FriendRequests";
-import BlockList from "../BlockList";
+import MyGroupe from "../../components/MyGroup";
+import Groups from "../../components/Groups";
+import Friends from "../../components/Friends";
+import Peoples from "../../components/Peoples";
+import FrendRequests from "../../components/FriendRequests";
+import BlockList from "../../components/BlockList";
 function Home() {
   return (
     <div className="bg-slate-200 w-full">

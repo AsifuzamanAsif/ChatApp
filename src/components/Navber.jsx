@@ -17,7 +17,7 @@ function Navber() {
           />
         </Link>
       </div>
-      <div className="pl-8">
+      <div className="pl-8 ">
         <ul className="flex flex-col gap-4 text-lg font-secondary font-semibold ">
           <li>
             <Link
