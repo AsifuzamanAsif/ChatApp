@@ -3,7 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
 import { ToastContainer, toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { loggeduser } from "../../Slice/userSlice";
 const Login = () => {
+  const disptch = useDispatch
   const auth = getAuth();
   const db = getDatabase();
   let navegite = useNavigate();
@@ -41,6 +44,8 @@ const Login = () => {
               closeOnClick: true,
               theme: "light",
             });
+            // disptch(loggeduser({ user: res.user }))
+            // console.log(res.user);
             setTimeout(() => {
               navegite("/Newsfeed");
             }, 1500);
