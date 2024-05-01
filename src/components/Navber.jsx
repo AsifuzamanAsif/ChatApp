@@ -69,7 +69,7 @@ function Navber() {
               to="User"
               className="flex items-center gap-3 py-3 pt-[300px] px-3 rounded-lg w-fit"
             >
-              <img src="pic.png" alt="" />
+              <img src="/user.png" alt="user" className="w-[8px]" />
               Profile
             </Link>
           </li>

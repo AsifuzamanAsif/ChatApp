@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, json, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
 import { ToastContainer, toast } from "react-toastify";
@@ -44,6 +44,7 @@ const Login = () => {
               closeOnClick: true,
               theme: "light",
             });
+            localStorage.setItem("user",JSON.stringify (res.user));
             disptch(loggeduser(res.user));
             console.log(res.user);
             setTimeout(() => {
