@@ -5,7 +5,9 @@ import { IoChatboxOutline } from "react-icons/io5";
 import { IoPeopleOutline } from "react-icons/io5";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { CgMoreVerticalO } from "react-icons/cg";
+import { useSelector } from "react-redux";
 function Navber() {
+  const user = useSelector((state) => state.userSlice.user);
   return (
     <nav className="w-48 h-screen bg-slate-300 shadow-[6px_0px_10px_-7px_rgba(0,0,0,0.62)];">
       <div>
@@ -67,10 +69,17 @@ function Navber() {
           <li className="flex">
             <Link
               to="User"
-              className="flex items-center gap-3 py-3 pt-[300px] px-3 rounded-lg w-fit"
+              className="flex items-center gap-3 py-3 pt-[300px] rounded-lg w-fit"
             >
-              <img src="/user.png" alt="user" className="w-[8px]" />
-              Profile
+              <img src="/user.png" alt="user" className="w-[60px] h-[60px]" />
+              <div>
+                <p className="text-lg font-primary font-semibold text-primary">
+                  {user.displayName}
+                </p>
+                <p className="text-sm font-primary font-semibold text-primary">
+                  Edit Profile
+                </p>
+              </div>
             </Link>
           </li>
         </ul>
