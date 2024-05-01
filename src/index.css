@@ -145,7 +145,7 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .Pheader {
- @apply h-[60px] w-full text-center float-left text-white;
+  @apply h-[60px] w-full text-center float-left text-white;
   background: #56b8de;
 }
 .profilepic {
