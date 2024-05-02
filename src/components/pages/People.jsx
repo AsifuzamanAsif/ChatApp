@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
 import Title from "../Title";
 import PeoplesItem from "../PeoplesItem";
+import { getDatabase, ref, onValue } from "firebase/database";
+import { useSelector } from "react-redux";
 function People() {
+  const user = useSelector((state) => state.userSlice.user);
+  const db = getDatabase();
+  useEffect(() => {
+    const starCountRef = ref(db, "posts/" + postId + "/starCount");
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      updateStarCount(postElement, data);
+    });
+  }, []);
   return (
     <div className="w-full p-4 rounded-2xl bg-white px-80">
       <Title title="People" />

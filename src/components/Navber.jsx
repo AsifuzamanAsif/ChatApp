@@ -9,17 +9,17 @@ import { useSelector } from "react-redux";
 function Navber() {
   const user = useSelector((state) => state.userSlice.user);
   return (
-    <nav className="w-48 h-screen bg-slate-300 shadow-[6px_0px_10px_-7px_rgba(0,0,0,0.62)];">
+    <nav className="w-48 min-h-screen bg-slate-300 shadow-[6px_0px_10px_-7px_rgba(0,0,0,0.62)];">
       <div>
         <Link to="/Newsfeed">
           <img
             src="/ChatApp_Logo-removebg-preview.png"
             alt="Logo"
-            className="w-[200px] text-center"
+            className="w-48 text-center"
           />
         </Link>
       </div>
-      <div className="pl-8 ">
+      <div className="pl-8">
         <ul className="flex flex-col gap-4 text-lg font-secondary font-semibold ">
           <li>
             <Link
@@ -69,11 +69,12 @@ function Navber() {
           <li className="flex">
             <Link
               to="User"
-              className="flex items-center gap-3 py-3 pt-[300px] rounded-lg w-fit"
-            >
-              <img src="/user.png" alt="user" className="w-[60px] h-[60px]" />
-              <div>
-                <p className="text-lg font-primary font-semibold text-primary">
+              className="flex items-center gap-2 py-3 pt-60 rounded-lg w-fit">
+              <img
+                src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxivAs4UknzmDfLBXGMxQkayiZDhR2ftB4jcIV7LEnIEStiUyMygioZnbLXCAND-I_xWQpVp0jv-dv9NVNbuKn4sNpXYtLIJk2-IOdWQNpC2Ldapnljifu0pnQqAWU848Ja4lT9ugQex-nwECEh3a96GXwiRXlnGEE6FFF_tKm66IGe3fzmLaVIoNL/s1600/img_avatar.png" alt="user"
+                className="w-[40px] h-[40px] rounded-[50%] border-2 border-solid"/>
+                <div>
+                <p className="text-sm font-primary font-semibold text-primary">
                   {user.displayName}
                 </p>
                 <p className="text-sm font-primary font-semibold text-primary">

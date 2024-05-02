@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, json, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
 import { ToastContainer, toast } from "react-toastify";
@@ -32,7 +32,7 @@ const Login = () => {
               theme: "light",
             });
           } else {
-            set(ref(db, "users/" + res.user.uid), {
+            set(ref(db, "user/" + res.user.uid), {
               username: res.user.displayName,
               email: res.user.email,
               profile_picture: res.user?.photoURL,
@@ -44,7 +44,7 @@ const Login = () => {
               closeOnClick: true,
               theme: "light",
             });
-            localStorage.setItem("user",JSON.stringify (res.user));
+            localStorage.setItem("user",JSON.stringify(res.user));
             disptch(loggeduser(res.user));
             console.log(res.user);
             setTimeout(() => {

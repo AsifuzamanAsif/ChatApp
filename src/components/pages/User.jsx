@@ -1,5 +1,10 @@
 import React from "react";
+import { AiFillEdit } from "react-icons/ai";
 import { useSelector } from "react-redux";
+// import { useState, createRef } from "react";
+// import Cropper, { ReactCropperElement } from "react-cropper";
+// import "cropperjs/dist/cropper.css";
+// import { Cropper } from "react-cropper";
 function User() {
   const user = useSelector((state) => state.userSlice.user);
   return (
@@ -20,13 +25,9 @@ function User() {
           <h3>{user.displayName}</h3>
         </div>
         <div className="header2">
-          <p>
-            <br /> Graphic Designer
-            <br /> Text
-            <br />
-            text
-          </p>
-          text
+          <h2>Email : {user.email}</h2>
+          <p>Bio </p>
+          <AiFillEdit />
         </div>
       </div>
     </div>
