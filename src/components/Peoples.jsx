@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Title from "./Title";
 import { CiSearch } from "react-icons/ci";
 import PeoplesItem from "./PeoplesItem";
 import { getDatabase, ref, onValue } from "firebase/database";
-function Peoples() {
+function People() {
   const db = getDatabase();
   const [userList, setuserList] = useState([]);
   useEffect(() => {
@@ -16,6 +16,7 @@ function Peoples() {
       });
     });
   }, []);
+  console.log(userList);
   return (
     <div className="w-1/3 p-4 rounded-2xl bg-white">
       <Title title="People" />
@@ -35,4 +36,4 @@ function Peoples() {
     </div>
   );
 }
-export default Peoples;
+export default People;
