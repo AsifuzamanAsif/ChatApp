@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Title from "./Title";
 import { CiSearch } from "react-icons/ci";
 import PeoplesItem from "./PeoplesItem";
+import { getDatabase, ref, onValue } from "firebase/database";
 function Peoples() {
+  const db = getDatabase();
+  const [userList, setuserList] = useState([]);
+  useEffect(() => {
+    const starCountRef = ref(db, "user/");
+    let arr = [];
+    onValue(starCountRef, (snapshot) => {
+      snapshot.forEach((item) => {
+        arr.push({ ...item.val(), key: item.key });
+        setuserList(arr);
+      });
+    });
+  }, []);
   return (
     <div className="w-1/3 p-4 rounded-2xl bg-white">
       <Title title="People" />
@@ -15,12 +28,9 @@ function Peoples() {
         />
       </div>
       <div className="flex flex-col gap-4 mt-5">
-        <PeoplesItem />
-        <PeoplesItem />
-        <PeoplesItem />
-        <PeoplesItem />
-        <PeoplesItem />
-        <PeoplesItem />
+        {userList.map((item) => {
+          <PeoplesItem userData={item} key={item.key} />;
+        })}
       </div>
     </div>
   );

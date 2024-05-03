@@ -1,7 +1,8 @@
 import React from "react";
 
-function PeoplesItem() {
-  return ( 
+const PeoplesItem = ({ userData }) => {
+  console.log(userData);
+  return (
     <div className="flex gap-4">
       <div>
         <img src="pic.png" alt="" />
