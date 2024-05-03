@@ -4,7 +4,7 @@ const PeoplesItem = ({ userData }) => {
   return (
     <div className="flex gap-4">
       <div className="w-12 h-12">
-        <img src={userData.profile_picture} alt="pic" />
+        <img src={userData.profile_picture} alt="pic"className="w-full" />
       </div>
       <div className="flex flex-col justify-center">
         <h2 className="font-secondary font-semibold text-lg">
