@@ -1,19 +1,25 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import Title from "../Title";
 import PeoplesItem from "../PeoplesItem";
 import { getDatabase, ref, onValue } from "firebase/database";
+import { useSelector } from "react-redux";
 
 function People() {
   const db = getDatabase();
+  const user = useSelector((state) => state.userSlice.user);
   const [userList, setuserList] = useState([]);
+  const [loading, setloading] = useState(true);
   useEffect(() => {
     const starCountRef = ref(db, "user/");
     let arr = [];
     onValue(starCountRef, (snapshot) => {
       snapshot.forEach((item) => {
-        arr.push({ ...item.val(), key: item.key });
+        if (item.key !== user.uid) {
+          arr.push({ ...item.val(), key: item.key });
+        }
         setuserList(arr);
+        setloading(false);
       });
     });
   }, []);
@@ -30,9 +36,11 @@ function People() {
         />
       </div>
       <div className="flex flex-col gap-7 mt-7">
-        {userList.map((item) => (
-          <PeoplesItem userData={item} key={item.key} />
-        ))}
+        {loading ? (
+          <p>Loading Data...</p>
+        ) : (
+          userList.map((item) => <PeoplesItem userData={item} key={item.key} />)
+        )}
       </div>
     </div>
   );

@@ -11,7 +11,9 @@ function People() {
     let arr = [];
     onValue(starCountRef, (snapshot) => {
       snapshot.forEach((item) => {
-        arr.push({ ...item.val(), key: item.key });
+        if (item.key !== userList.uid) {
+          arr.push({ ...item.val(), key: item.key });
+        }
         setuserList(arr);
       });
     });
