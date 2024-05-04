@@ -23,7 +23,6 @@ function People() {
       });
     });
   }, []);
-  console.log(userList);
   return (
     <div className="w-full p-4 rounded-2xl bg-white px-80">
       <Title title="People" />

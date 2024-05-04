@@ -20,12 +20,12 @@ function User() {
         <div className="header1">
           <img
             className="profilepic"
-            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxivAs4UknzmDfLBXGMxQkayiZDhR2ftB4jcIV7LEnIEStiUyMygioZnbLXCAND-I_xWQpVp0jv-dv9NVNbuKn4sNpXYtLIJk2-IOdWQNpC2Ldapnljifu0pnQqAWU848Ja4lT9ugQex-nwECEh3a96GXwiRXlnGEE6FFF_tKm66IGe3fzmLaVIoNL/s1600/img_avatar.png"
+            // {user.}
           />
-          <h3>{user.displayName}</h3>
+         { user.displayName } 
         </div>
         <div className="header2">
-          <h2>Email : {user.email}</h2>
+          Email : {user.email}
           <p>Bio </p>
           <AiFillEdit />
         </div>
