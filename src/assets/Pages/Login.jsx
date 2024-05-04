@@ -107,7 +107,7 @@ const Login = () => {
           navegite("/Newsfeed");
         }, 1500);
       })
-      .catc((error) => {
+      .catch((error) => {
         const errorMessage = error.message;
         console.log(errorMessage);
       });

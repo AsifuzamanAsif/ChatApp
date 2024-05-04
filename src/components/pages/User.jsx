@@ -18,16 +18,17 @@ function User() {
       />
       <div className="slider">
         <div className="header1">
-          <img
-            className="profilepic"
-            // {user.}
-          />
-         { user.displayName } 
+          <div className="w-16 h-16 m-auto mt-2 ">
+            <img src={user.photoURL} alt="Photo" className="w-full rounded" />
+          </div>
+          {user.displayName}
         </div>
         <div className="header2">
           Email : {user.email}
-          <p>Bio </p>
-          <AiFillEdit />
+          <div className="flex gap-2 px-8 text-lg mt-3">
+            <AiFillEdit />
+            <p className="text-base">Bio</p>
+          </div>
         </div>
       </div>
     </div>

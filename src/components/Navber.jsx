@@ -73,7 +73,7 @@ function Navber() {
               className="flex items-center gap-2 py-3 pt-60 rounded-lg w-fit"
             >
               <img
-                src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxivAs4UknzmDfLBXGMxQkayiZDhR2ftB4jcIV7LEnIEStiUyMygioZnbLXCAND-I_xWQpVp0jv-dv9NVNbuKn4sNpXYtLIJk2-IOdWQNpC2Ldapnljifu0pnQqAWU848Ja4lT9ugQex-nwECEh3a96GXwiRXlnGEE6FFF_tKm66IGe3fzmLaVIoNL/s1600/img_avatar.png"
+                src={user.photoURL}
                 alt="userpic"
                 className="w-[40px] h-[40px] rounded-[50%] border-2 border-solid"
               />
