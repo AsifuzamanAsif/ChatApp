@@ -3,18 +3,23 @@ import Title from "./Title";
 import { CiSearch } from "react-icons/ci";
 import PeoplesItem from "./PeoplesItem";
 import { getDatabase, ref, onValue } from "firebase/database";
-function People() {
+import { useSelector } from "react-redux";
+
+function Peoples() {
   const db = getDatabase();
+  const user = useSelector((state) => state.userSlice.user);
   const [userList, setuserList] = useState([]);
+  const [loading, setloading] = useState(true);
   useEffect(() => {
     const starCountRef = ref(db, "user/");
     let arr = [];
     onValue(starCountRef, (snapshot) => {
       snapshot.forEach((item) => {
-        if (item.key !== userList.uid) {
+        if (item.key !== user.uid) {
           arr.push({ ...item.val(), key: item.key });
         }
         setuserList(arr);
+        setloading(false);
       });
     });
   }, []);
@@ -31,11 +36,13 @@ function People() {
         />
       </div>
       <div className="flex flex-col gap-4 mt-5">
-        {userList.map((item) => {
-          <PeoplesItem userData={item} key={item.key} />;
-        })}
+        {loading ? (
+          <p>Loading Data...</p>
+        ) : (
+          userList.map((item) => <PeoplesItem userData={item} key={item.key} />)
+        )}
       </div>
     </div>
   );
 }
-export default People;
+export default Peoples;

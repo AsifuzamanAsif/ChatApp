@@ -73,13 +73,13 @@ function Navber() {
               className="flex items-center gap-2 py-3 pt-60 rounded-lg w-fit"
             >
               <img
-                src={user.photoURL}
+                src={user?.photoURL}
                 alt="userpic"
                 className="w-[40px] h-[40px] rounded-[50%] border-2 border-solid"
               />
               <div>
                 <p className="text-sm font-primary font-semibold text-primary">
-                  {user.displayName}
+                  {user?.displayName}
                 </p>
                 <p className="text-sm font-primary font-semibold text-primary">
                   Edit Profile
