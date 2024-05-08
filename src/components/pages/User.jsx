@@ -5,12 +5,13 @@ import { IoMdMore } from "react-icons/io";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import { getDatabase, ref, set } from "firebase/database";
+import { GiCrossMark } from "react-icons/gi";
 function User() {
-  const db = getDatabase();
   const user = useSelector((state) => state.userSlice.user);
+  const db = getDatabase();
   const [enableEdit, setEnableEdit] = useState(false);
   const [image, setImage] = useState();
-  const [cropData, setCropData] = useState("#");
+  const [cropData, setCropData] = useState("");
   const cropperRef = createRef();
 
   const onChange = (e) => {
@@ -32,33 +33,56 @@ function User() {
       setCropData(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
     }
   };
+ 
+
+  const handelClose = () => {
+    setEnableEdit(false)
+    setCropData("")
+  }
+  
 
   return (
     <div className="text-sm w-96 bg-white rounded-lg overflow-hidden my-4 m-auto h-fit">
       {enableEdit && (
         <>
-          <input type="file" onChange={onChange} />
-          {image && (
-            <Cropper
-              ref={cropperRef}
-              style={{ height: 400, width: "100%" }}
-              zoomTo={0.5}
-              initialAspectRatio={1}
-              preview=".img-preview"
-              src={image}
-              viewMode={1}
-              minCropBoxHeight={10}
-              minCropBoxWidth={10}
-              background={false}
-              responsive={true}
-              autoCropArea={1}
-              checkOrientation={false}
-              guides={true}
-            />
-          )}
-          <button onClick={getCropData}
-          className="py-2 px-4 bg-cyan-900 text-white rounded-xl my-2"
-          >Crop Image</button>
+          <div className="flex justify-between">
+            <button className="py-1 px-2 bg-green-600 rounded-xl text-white">
+              Save
+            </button>
+            <button
+              onClick={handelClose}
+              className="py-1 px-2 bg-red-600 rounded-xl text-white"
+            >
+              <GiCrossMark />
+            </button>
+          </div>
+          <div>
+            <input className="py-2" type="file" onChange={onChange} />
+            {image && (
+              <Cropper
+                ref={cropperRef}
+                style={{ height: 400, width: "100%" }}
+                zoomTo={0.5}
+                initialAspectRatio={1}
+                preview=".img-preview"
+                src={image}
+                viewMode={1}
+                minCropBoxHeight={10}
+                minCropBoxWidth={10}
+                background={false}
+                responsive={true}
+                autoCropArea={1}
+                checkOrientation={false}
+                guides={true}
+              />
+            )}
+          </div>
+          <button
+            onClick={getCropData}
+            className="py-2 px-2 bg-cyan-900 text-white rounded-xl my-1"
+          >
+            Crop Image
+          </button>
         </>
       )}
 
@@ -68,35 +92,37 @@ function User() {
             onClick={() => setEnableEdit(true)}
             className="group relative text-white text-2xl cursor-pointer"
           >
-            <IoMdMore className="text-white text-2xl cursor-pointer pt-2" />
+            <IoMdMore className="text-white cursor-pointer" />
             <p className="text-black hidden absolute group-hover:block whitespace-nowrap">
               Edit Profile Picture
             </p>
           </div>
-          <h4 className="mt-2">My Profile</h4>
+          <h4 className="mt-2 text-lg">My Profile</h4>
         </div>
         <img
           className="background"
           src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiKM6rRET9CTBdVhMPRZIYaT3fHRVVEoIAZ9D3lR9da2ZlTlRdoK1X7E9mOcp7cNWP912Cq-fkhmdpD6byoX5EoDNkOHaoZa0xKcOx-ccCWxNU8Mr9TabV6dnRPqdhMD4T0EwbcX0Alxp9Z-85RRY_T8fynoHjQI38wuQcnTfwJL88JiGYW2x6jkmDR/s1600/bg-new-1.jpg"
         />
         <div className="slider">
-          <div className="header1">
+          <div className="header1 text-lg my-3">
             <div className="w-16 h-16 m-auto mt-2 ">
               <img
                 className="w-full rounded object-center object-cover"
-                src={cropData
-                  ? cropData
-                  : user?.photoURL}
+                src={cropData ? cropData : user?.photoURL}
                 alt="avater"
               />
             </div>
             {user.displayName}
           </div>
-          <div className="header2">
+          <div className="header2 text-lg">
             Email : {user.email}
-            <div className="flex gap-2 px-8 text-lg mt-3">
-              <AiFillEdit />
-              <p className="text-base">Bio</p>
+            <div className="header2 text-lg flex gap-2 px-12">
+              <ul className="flex justify-center items-center gap-2">
+                <li>
+                  <AiFillEdit />
+                </li>
+                <li> Bio</li>
+              </ul>
             </div>
           </div>
         </div>

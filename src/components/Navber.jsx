@@ -70,12 +70,12 @@ function Navber() {
           <li className="flex">
             <Link
               to="/User"
-              className="flex items-center gap-2 py-3 pt-60 rounded-lg w-fit"
+              className="flex items-center gap-2 py-3 pt-60 rounded-lg  w-fit"
             >
               <img
                 src={user?.photoURL}
                 alt="userpic"
-                className="w-[40px] h-[40px] rounded-[50%] border-2 border-solid"
+                className="w-[40px] h-[40px] rounded-[50%] border-2 border-solid overflow-hidden"
               />
               <div>
                 <p className="text-sm font-primary font-semibold text-primary">
