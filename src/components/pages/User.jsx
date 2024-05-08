@@ -4,10 +4,20 @@ import { useSelector } from "react-redux";
 import { IoMdMore } from "react-icons/io";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
-import { getDatabase, ref, set } from "firebase/database";
+import { getDatabase } from "firebase/database";
 import { GiCrossMark } from "react-icons/gi";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadString,
+} from "firebase/storage";
+import { updateProfile, getAuth, onAuthStateChanged } from "firebase/auth";
+
 function User() {
   const user = useSelector((state) => state.userSlice.user);
+  const auth = getAuth();
+  const storage = getStorage();
   const db = getDatabase();
   const [enableEdit, setEnableEdit] = useState(false);
   const [image, setImage] = useState();
@@ -33,22 +43,44 @@ function User() {
       setCropData(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
     }
   };
- 
 
   const handelClose = () => {
-    setEnableEdit(false)
-    setCropData("")
-  }
-  
+    setEnableEdit(false);
+    setCropData("");
+    setImage("");
+  };
+
+  const handelUpload = () => {
+    const storageRef = ref(storage, user?.uid);
+    uploadString(storageRef, cropData, "data_url").then((snapshot) => {
+      getDownloadURL(storageRef).then((downloadURL) => {
+        onAuthStateChanged(auth, () => {
+          updateProfile(auth.currentUser, {
+            photoURL: downloadURL,
+          }).then(() => {
+            setEnableEdit(false);
+            setCropData("");
+            setImage("");
+          });
+        });
+      });
+    });
+  };
 
   return (
     <div className="text-sm w-96 bg-white rounded-lg overflow-hidden my-4 m-auto h-fit">
       {enableEdit && (
         <>
           <div className="flex justify-between">
-            <button className="py-1 px-2 bg-green-600 rounded-xl text-white">
+            {
+              cropData &&
+            <button
+              onClick={handelUpload}
+              className="py-1 px-2 bg-green-600 rounded-xl text-white"
+            >
               Save
             </button>
+            }
             <button
               onClick={handelClose}
               className="py-1 px-2 bg-red-600 rounded-xl text-white"
