@@ -75,7 +75,7 @@ function Navber() {
               <img
                 src={user?.photoURL}
                 alt="userpic"
-                className="w-[40px] h-[40px] rounded-[50%] border-2 border-solid overflow-hidden"
+                className="w-[40px] h-[40px] rounded-[50%] border-2 border-solid"
               />
               <div>
                 <p className="text-sm font-primary font-semibold text-primary">
