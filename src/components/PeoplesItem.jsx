@@ -1,11 +1,10 @@
 import { getDatabase, push, ref, set } from "firebase/database";
 import { useSelector } from "react-redux";
 const PeoplesItem = ({ userData }) => {
-    const db = getDatabase();
- const user = useSelector((state) => state.userSlice.user);
+  const db = getDatabase();
+  const user = useSelector((state) => state.userSlice.user);
 
-
-  const handelRequest = (key , userName) => {
+  const handelRequest = (key, userName) => {
     console.log(key);
     set(push(ref(db, "friendRequest/")), {
       senderName: user.displayName,
@@ -13,7 +12,7 @@ const PeoplesItem = ({ userData }) => {
       reciverName: userName,
       reciverId: key,
     });
-  }
+  };
   return (
     <div className="flex gap-4">
       <div className="w-12 h-12">
@@ -28,7 +27,10 @@ const PeoplesItem = ({ userData }) => {
           {userData.username}
         </h2>
       </div>
-      <button onClick={()=>handelRequest(userData.key, userData.username)} className="ml-auto font-secondary font-normal text-lg text-[#32375C]">
+      <button
+        onClick={() => handelRequest(userData.key, userData.username)}
+        className="ml-auto font-secondary font-normal text-lg text-[#32375C]"
+      >
         Add Request
       </button>
     </div>
