@@ -1,6 +1,19 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import { getDatabase, ref, onValue } from "firebase/database";
 function FrendRequestItem() {
+  const db = getDatabase();
+  const [friendRequestList, setfriendReqest] = useState([]);
+
+  useEffect(() => {
+    let arr = []
+    const starCountRef = ref(db, "friendRequest/");
+    onValue(starCountRef, (snapshot) => {
+      snapshot.forEach((item) => {
+        arr.push(item.val())
+      })
+    });
+  })
+
   return (
     <div className="flex gap-4">
       <div>
