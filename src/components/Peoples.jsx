@@ -10,6 +10,7 @@ function Peoples() {
   const user = useSelector((state) => state.userSlice.user);
   const [userList, setuserList] = useState([]);
   const [loading, setloading] = useState(true);
+  
   useEffect(() => {
     const starCountRef = ref(db, "user/");
     let arr = [];
