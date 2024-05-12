@@ -5,14 +5,11 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   sendEmailVerification,
-  GoogleAuthProvider,
 } from "firebase/auth";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import Login from "./Login";
 const registration = () => {
   const auth = getAuth();
-
   const navigate = useNavigate();
   let [name, setName] = useState("");
   let [email, setemail] = useState("");
@@ -37,7 +34,7 @@ const registration = () => {
           updateProfile(auth.currentUser, {
             displayName: name,
             photoURL: "/user.png",
-          }).then((res) => {
+          }).then(() => {
             toast.success(
               "Registration Successful !. Please Verify Your Email",
               {

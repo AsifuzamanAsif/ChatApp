@@ -8,7 +8,7 @@ function FrendRequests() {
   const db = getDatabase();
   const [FriendRequestList, setfriendReqest] = useState([]);
   const [userList, setuserList] = useState([]);
-
+const [loading, setloading] = useState(true);
   useEffect(() => {
     const starCountRef = ref(db, "user/");
     let arr = [];
@@ -16,10 +16,10 @@ function FrendRequests() {
       snapshot.forEach((item) => {
         arr.push({ ...item.val(), key: item.key });
         setuserList(arr);
+        setloading(false)
       });
     });
   }, []);
-  console.log(user);
 
   useEffect(() => {
     let arr = [];
@@ -39,13 +39,21 @@ function FrendRequests() {
     <div className="w-1/3 p-4 rounded-2xl bg-white">
       <Title title="Friend Request" />
 
-      {FriendRequestList.map((reqId) =>
+      {loading ? (
+        <div className="loader  m-auto">
+          <span className="loader-text">loading</span>
+          <span className="load"></span>
+        </div>
+      ) : (
+        
+      FriendRequestList.map((reqId) =>
         userList.map(
           (item) =>
             reqId.senderId == item.key && (
-              <FrendRequestItem key={item.key} reqList={item} />
+              <FrendRequestItem key={item.key} reqList={item} frReqId={reqId.key} />
             )
         )
+      )
       )}
     </div>
   );

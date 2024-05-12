@@ -1,11 +1,13 @@
-import { getDatabase, push, ref, set } from "firebase/database";
+import { getDatabase, onValue, push, ref, set } from "firebase/database";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 const PeoplesItem = ({ userData }) => {
   const db = getDatabase();
   const user = useSelector((state) => state.userSlice.user);
-
+  const [friendRequestList, setfriendReqest] = useState([]);
+  const [realtime,setRealtime] =useState(false)
   const handelRequest = (key, userName) => {
-    console.log(key);
+    setRealtime(!realtime)
     set(push(ref(db, "friendRequest/")), {
       senderName: user.displayName,
       senderId: user.uid,
@@ -13,6 +15,23 @@ const PeoplesItem = ({ userData }) => {
       reciverId: key,
     });
   };
+
+  useEffect(() => {
+    let arr = [];
+    const starCountRef = ref(db, "friendRequest/");
+    onValue(starCountRef, (snapshot) => {
+      snapshot.forEach((item) => {
+        arr.push(item.val().senderId + item.val().reciverId);
+      });
+      setfriendReqest(arr);
+    });
+  }, [realtime]);
+
+
+  const handelCancel = () => {
+    
+  }
+
   return (
     <div className="flex gap-4">
       <div className="w-12 h-12">
@@ -27,12 +46,21 @@ const PeoplesItem = ({ userData }) => {
           {userData.username}
         </h2>
       </div>
-      <button
-        onClick={() => handelRequest(userData.key, userData.username)}
-        className="ml-auto font-secondary font-normal text-lg text-[#32375C]"
-      >
-        Add Request
-      </button>
+      {friendRequestList.includes(user.uid + userData.key) ? (
+        <button onClick={handelCancel} className="ml-auto font-secondary font-normal text-lg text-[#32375C]">
+          Cancel Request
+        </button>
+      ) : friendRequestList.includes(userData.key + user.uid) ? (
+        <button className="ml-auto font-secondary font-normal text-lg text-[#32375C]">_
+        </button>
+      ) : (
+        <button
+          onClick={() => handelRequest(userData.key, userData.username)}
+          className="ml-auto font-secondary font-normal text-lg text-[#32375C]"
+        >
+          Add Request
+        </button>
+      )}
     </div>
   );
 };

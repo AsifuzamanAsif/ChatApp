@@ -38,7 +38,10 @@ function Peoples() {
       </div>
       <div className="flex flex-col gap-4 mt-5">
         {loading ? (
-          <p>Loading Data...</p>
+          <div className="loader flex justify-center items-center m-auto">
+            <span className="loader-text">loading</span>
+            <span className="load"></span>
+          </div>
         ) : (
           userList.map((item) => <PeoplesItem userData={item} key={item.key} />)
         )}

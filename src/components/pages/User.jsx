@@ -4,8 +4,9 @@ import { useSelector } from "react-redux";
 import { IoMdMore } from "react-icons/io";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
-import { getDatabase } from "firebase/database";
 import { GiCrossMark } from "react-icons/gi";
+// import { getDatabase } from "firebase/database";
+import { getDatabase, ref as dref, set } from "firebase/database";
 import {
   getDownloadURL,
   getStorage,
@@ -13,16 +14,19 @@ import {
   uploadString,
 } from "firebase/storage";
 import { updateProfile, getAuth, onAuthStateChanged } from "firebase/auth";
+import { loggeduser } from "../../Slice/userSlice";
 
 function User() {
-  const user = useSelector((state) => state.userSlice.user);
+  const db = getDatabase();
+  const disptch = useDispatch();
   const auth = getAuth();
   const storage = getStorage();
-  const db = getDatabase();
+  const user = useSelector((state) => state.userSlice.user);
   const [enableEdit, setEnableEdit] = useState(false);
-  const [image, setImage] = useState();
+  const [image, setImage] = useState("");
   const [cropData, setCropData] = useState("");
   const cropperRef = createRef();
+  const [loading, setLoading] = useState(true);
 
   const onChange = (e) => {
     let files;
@@ -51,20 +55,31 @@ function User() {
   };
 
   const handelUpload = () => {
-    const storageRef = ref(storage, user?.uid);
-    uploadString(storageRef, cropData, "data_url").then((snapshot) => {
-      getDownloadURL(storageRef).then((downloadURL) => {
-        onAuthStateChanged(auth, () => {
-          updateProfile(auth.currentUser, {
-            photoURL: downloadURL,
-          }).then(() => {
-            setEnableEdit(false);
-            setCropData("");
-            setImage("");
+    setLoading(true);
+    if (cropData) {
+      const storageRef = ref(storage, user?.uid);
+      uploadString(storageRef, cropData, "data_url").then(() => {
+        getDownloadURL(storageRef).then((downloadURL) => {
+          onAuthStateChanged(auth, () => {
+            updateProfile(auth.currentUser, {
+              photoURL: downloadURL,
+            }).then(() => {
+              set(dref(db, "user/" + user.uid), {
+                email: user.email,
+                profile_picture: downloadURL,
+                username: user.displayName,
+              });
+              localStorage.setItem("user", JSON.stringify(auth.currentUser));
+              disptch(loggeduser(auth.currentUser));
+              setEnableEdit(false);
+              setCropData("");
+              setImage("");
+              window.location.reload();
+            });
           });
         });
       });
-    });
+    }
   };
 
   return (
@@ -72,15 +87,42 @@ function User() {
       {enableEdit && (
         <>
           <div className="flex justify-between">
-            {
-              cropData &&
-            <button
-              onClick={handelUpload}
-              className="py-1 px-2 bg-green-600 rounded-xl text-white"
-            >
-              Save
-            </button>
-            }
+            {cropData &&
+              (loading ? (
+                <button className=" bg-green-600 rounded-xl text-white">
+                  <div className="section-center">
+                    <div className="section-path">
+                      <div className="globe">
+                        <div className="wrapper">
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              ) : (
+                <button
+                  onClick={handelUpload}
+                  className="py-1 px-2 bg-green-600 rounded-xl text-white"
+                >
+                  Save
+                </button>
+              ))}
             <button
               onClick={handelClose}
               className="py-1 px-2 bg-red-600 rounded-xl text-white"
