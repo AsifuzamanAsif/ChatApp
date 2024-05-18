@@ -5,6 +5,7 @@ const PeoplesItem = ({ userData }) => {
   const db = getDatabase();
   const user = useSelector((state) => state.userSlice.user);
   const [friendRequestList, setfriendReqest] = useState([]);
+  const [friendtList, setfriendList] = useState([]);
   const [realtime,setRealtime] =useState(false)
   const handelRequest = (key, userName) => {
     setRealtime(!realtime)
@@ -27,11 +28,16 @@ const PeoplesItem = ({ userData }) => {
     });
   }, [realtime]);
 
-
-  const handelCancel = () => {
-    
-  }
-
+  useEffect(() => {
+    let arr = [];
+    const starCountRef = ref(db, "friends/");
+    onValue(starCountRef, (snapshot) => {
+      snapshot.forEach((item) => {
+        arr.push(item.val().friendId + item.val().reciverId);
+      });
+      setfriendList(arr);
+    });
+  }, [realtime]);
   return (
     <div className="flex gap-4">
       <div className="w-12 h-12">
@@ -47,11 +53,17 @@ const PeoplesItem = ({ userData }) => {
         </h2>
       </div>
       {friendRequestList.includes(user.uid + userData.key) ? (
-        <button onClick={handelCancel} className="ml-auto font-secondary font-normal text-lg text-[#32375C]">
+        <button className="ml-auto font-secondary font-normal text-lg text-[#32375C]">
           Cancel Request
         </button>
       ) : friendRequestList.includes(userData.key + user.uid) ? (
-        <button className="ml-auto font-secondary font-normal text-lg text-[#32375C]">_
+        <button className="ml-auto font-secondary font-normal text-lg text-[#32375C]">
+          -
+        </button>
+      ) : friendtList.includes(userData.key + user.uid) ||
+        friendtList.includes(user.uid + userData.key) ? (
+        <button className="ml-auto font-secondary font-normal text-lg text-[#32375C]">
+          Fridens
         </button>
       ) : (
         <button

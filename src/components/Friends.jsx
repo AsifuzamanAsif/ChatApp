@@ -1,8 +1,40 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { getDatabase, onValue, push, ref, set } from "firebase/database";
 import Title from "./Title";
 import { CiSearch } from "react-icons/ci";
 import FriendsItem from "./FriendsItem";
+import { useSelector } from "react-redux";
+
 function Friends() {
+  const db = getDatabase();
+  const user = useSelector((state) => state.userSlice.user);
+  const [friendtList, setfriendList] = useState([]);
+
+  useEffect(() => {
+    let arr = [];
+    const starCountRef = ref(db, "friends/");
+    onValue(starCountRef, (snapshot) => {
+      snapshot.forEach((item) => {
+        if (item.val().friendId == user.uid) {
+          arr.push({
+            friendId: item.val().reciverId,
+            friendName: item.val().reciverName,
+            friendImg: item.val().reciverprofile,
+            key: item.key,
+          });
+        } else if (item.val().reciverId == user.uid) {
+          arr.push({
+            friendId: item.val().friendId,
+            friendName: item.val().friendName,
+            friendImg: item.val().friendprofile,
+            key: item.key,
+          });
+        }
+      });
+      setfriendList(arr);
+    });
+  }, []);
+
   return (
     <div className="w-1/3 p-4 rounded-2xl bg-white">
       <Title title="Friends" />
@@ -15,12 +47,11 @@ function Friends() {
         />
       </div>
       <div className="flex flex-col gap-4 mt-5">
-        <FriendsItem />
-        <FriendsItem />
-        <FriendsItem />
-        <FriendsItem />
-        <FriendsItem />
-        <FriendsItem />
+        {friendtList.length > 0 ? (
+          friendtList.map((item) => <FriendsItem data={item} />)
+        ) : (
+          <p className="text-center">No Friends Available</p>
+        )}
       </div>
     </div>
   );
