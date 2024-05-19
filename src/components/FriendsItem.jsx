@@ -1,13 +1,23 @@
-import { getDatabase, ref, remove } from "firebase/database";
+import { getDatabase, push, ref, remove, set } from "firebase/database";
+import { useSelector } from "react-redux";
 
 function FriendsItem({ data }) {
-    const db = getDatabase();
+  const user = useSelector((state) => state.userSlice.user);
+  const db = getDatabase();
   const handelUnfriend = (key) => {
     remove(ref(db, "friends/" + key));
     window.location.reload()
   };
   const handelBlock = (data) => {
-    console.log(data);
+    set(push(ref(db, "block/")), {
+      blockById: user.uid,
+      blockByName: user.displayName,
+      blockByprofile: user.photoURL,
+      blockId: data.friendId,
+      blockName: data.friendName,
+      blockprofile: data.friendImg
+    });
+      remove(ref(db, "friends/" + data.key));
   }
   return (
     <div className="flex gap-4">

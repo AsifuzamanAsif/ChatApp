@@ -6,6 +6,7 @@ const PeoplesItem = ({ userData }) => {
   const user = useSelector((state) => state.userSlice.user);
   const [friendRequestList, setfriendReqest] = useState([]);
   const [friendtList, setfriendList] = useState([]);
+  const [blockList, setblockList] = useState([]);
   const [realtime, setRealtime] = useState(false);
   const handelRequest = (key, userName) => {
     setRealtime(!realtime);
@@ -38,6 +39,20 @@ const PeoplesItem = ({ userData }) => {
       setfriendList(arr);
     });
   }, [realtime]);
+
+
+  useEffect(() => {
+    let arr = [];
+    const starCountRef = ref(db, "block/");
+    onValue(starCountRef, (snapshot) => {
+      snapshot.forEach((item) => {
+        arr.push(item.val().blockById + item.val().blockId);
+      });
+      setblockList(arr);
+    });
+  }, [realtime]);
+
+
   return (
     <div className="flex gap-4">
       <div className="w-12 h-12">
@@ -64,6 +79,11 @@ const PeoplesItem = ({ userData }) => {
         friendtList.includes(user.uid + userData.key) ? (
         <button className="ml-auto font-secondary font-normal text-lg text-[#32375C]">
           Fridens
+        </button>
+      ) : blockList.includes(userData.key + user.uid) ||
+        blockList.includes(user.uid + userData.key) ? (
+        <button className="ml-auto font-secondary font-normal text-lg text-[#32375C]">
+          Blocked
         </button>
       ) : (
         <button
