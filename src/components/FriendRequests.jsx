@@ -29,7 +29,6 @@ const [loading, setloading] = useState(true);
         if (item.val().reciverId == user.uid) {
           arr.push({ ...item.val(), key: item.key });
         }
-        console.log(item.val());
       });
       setfriendReqest(arr);
     });
