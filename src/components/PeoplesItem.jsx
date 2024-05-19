@@ -6,9 +6,9 @@ const PeoplesItem = ({ userData }) => {
   const user = useSelector((state) => state.userSlice.user);
   const [friendRequestList, setfriendReqest] = useState([]);
   const [friendtList, setfriendList] = useState([]);
-  const [realtime,setRealtime] =useState(false)
+  const [realtime, setRealtime] = useState(false);
   const handelRequest = (key, userName) => {
-    setRealtime(!realtime)
+    setRealtime(!realtime);
     set(push(ref(db, "friendRequest/")), {
       senderName: user.displayName,
       senderId: user.uid,
