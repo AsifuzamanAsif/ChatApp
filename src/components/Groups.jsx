@@ -1,8 +1,25 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import Title from "./Title";
 import { CiSearch } from "react-icons/ci";
 import GroupItems from "./GroupItems";
+import { getDatabase, onValue, ref } from "firebase/database";
 function Groups() {
+  const db = getDatabase();
+  const [groupList, setGroupList] = useState([]);
+  const [loading, setloading] = useState(true);
+
+  useEffect(() => {
+    const starCountRef = ref(db, "group/");
+    let arr = [];
+    onValue(starCountRef, (snapshot) => {
+      snapshot.forEach((item) => {
+        arr.push({ ...item.val(), key: item.key });
+      });
+      setGroupList(arr);
+      setloading(false);
+    });
+  }, []);
+
   return (
     <div className="w-1/3 p-4 rounded-2xl bg-white">
       <Title title="Group" />
@@ -15,12 +32,16 @@ function Groups() {
         />
       </div>
       <div className="flex flex-col gap-4 mt-5">
-        <GroupItems />
-        <GroupItems />
-        <GroupItems />
-        <GroupItems />
-        <GroupItems />
-        <GroupItems />
+        {loading ? (
+          <div className="loader m-auto">
+            <span className="loader-text">loading</span>
+            <span className="load"></span>
+          </div>
+        ) : groupList.length > 0 ? (
+          groupList.map((item) => <GroupItems key={item.key} data={item} />)
+        ) : (
+          <p className="text-center">No Group Available</p>
+        )}
       </div>
     </div>
   );

@@ -1,9 +1,24 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import ChatBox from "../ChatBox";
 import { FaSearch } from "react-icons/fa";
-import Grouplist from "../Grouplist";
-
+import { getDatabase, onValue, ref } from "firebase/database";
+import GroupItems from "../GroupItems";
 function Group() {
+    const db = getDatabase();
+    const [groupList, setGroupList] = useState([]);
+    const [loading, setloading] = useState(true);
+
+    useEffect(() => {
+      const starCountRef = ref(db, "group/");
+      let arr = [];
+      onValue(starCountRef, (snapshot) => {
+        snapshot.forEach((item) => {
+          arr.push({ ...item.val(), key: item.key });
+        });
+        setGroupList(arr);
+        setloading(false);
+      });
+    }, []);
   return (
     <div className="bg-slate-200 w-full flex">
       <div className="px-6">
@@ -16,11 +31,18 @@ function Group() {
             placeholder="Search"
           />
         </div>
-        <Grouplist/>
-        <Grouplist/>
-        <Grouplist/>
-        <Grouplist/>
-        <Grouplist/>
+        <div className="py-6">
+          {loading ? (
+            <div className="loader m-auto">
+              <span className="loader-text">loading</span>
+              <span className="load"></span>
+            </div>
+          ) : groupList.length > 0 ? (
+            groupList.map((item) => <GroupItems key={item.key} data={item} />)
+          ) : (
+            <p className="text-center">No Group Available</p>
+          )}
+        </div>
       </div>
       <div className="w-full  h-screen">
         <ChatBox />

@@ -8,6 +8,7 @@ function Friend() {
   const db = getDatabase();
   const user = useSelector((state) => state.userSlice.user);
   const [friendtList, setfriendList] = useState([]);
+    const [loading, setloading] = useState(true);
 
   useEffect(() => {
     let arr = [];
@@ -31,6 +32,7 @@ function Friend() {
         }
       });
       setfriendList(arr);
+      setloading(false);
     });
   }, []);
   return (
@@ -45,7 +47,12 @@ function Friend() {
         />
       </div>
       <div className="flex flex-col gap-7 mt-7">
-        {friendtList.length > 0 ? (
+        {loading ? (
+          <div className="loader m-auto">
+            <span className="loader-text">loading</span>
+            <span className="load"></span>
+          </div>
+        ) : friendtList.length > 0 ? (
           friendtList.map((item) => <FriendsItem data={item} />)
         ) : (
           <p className="text-center">No Friends Available</p>
