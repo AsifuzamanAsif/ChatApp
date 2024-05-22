@@ -97,7 +97,7 @@ function MyGroup() {
             <span className="load"></span>
           </div>
         ) : groupList.length > 0 ? (
-          groupList.map((item) => <GroupItems key={item.key} data={item} />)
+            groupList.map((item) => <GroupItems key={item.key} data={item} myGroup={true} />)
         ) : (
           <p className="text-center">No Group Available</p>
         )}
