@@ -54,8 +54,7 @@ function Friends() {
             <span className="loader-text">loading</span>
             <span className="load"></span>
           </div>
-        ) : 
-          friendtList.length > 0 ? (
+        ) : friendtList.length > 0 ? (
           friendtList.map((item) => <FriendsItem data={item} />)
         ) : (
           <p className="text-center">No Friends Available</p>
