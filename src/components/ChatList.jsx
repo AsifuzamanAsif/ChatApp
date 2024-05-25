@@ -1,15 +1,23 @@
-import React from "react";
-function ChatList() {
+import { useDispatch } from "react-redux";
+import{ currentFriendInfo } from "../Slice/currentChatfriendInfo";
+
+function ChatList({ data }) {
+  const disptch = useDispatch();
+  const handelClick = () => {
+    disptch(currentFriendInfo(data));
+  };
   return (
-    <div className="flex gap-4 mt-5 items-center">
-      <div>
-        <img src="pic.png" alt="" />
+    <div
+      onClick={handelClick}
+      className="flex gap-4 mt-5 items-center cursor-pointer border-b"
+    >
+      <div className="w-12 h-12 rounded-full overflow-hidden">
+        <img src={data?.friendImg} alt="" />
       </div>
       <div>
-        <button className="font-secondary font-semibold text-lg">Paula Mora</button>
-        <p className="font-secondary text-brand font-normal text-sm">
-          Love You.....
-        </p>
+        <button className="font-secondary font-semibold text-lg">
+          {data?.friendName}
+        </button>
       </div>
       <p className="ml-auto font-secondary font-normal text-sm text-brand">
         10:30 PM

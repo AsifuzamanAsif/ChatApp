@@ -1,17 +1,21 @@
-import React from "react";
 import { IoMdMore } from "react-icons/io";
 import { RiVidiconLine } from "react-icons/ri";
 import { IoMdCall } from "react-icons/io";
+import { useSelector } from "react-redux";
 function ChatBox() {
+  const friend = useSelector(
+    (action) => action.currentChatfriendInfo.friendInfo
+  );
+  console.log(friend);
   return (
     <div className="chatbox bg-[#343541] w-3/5 mx-8 mt-6">
       <div className="flex p-3 gap-4 items-center border-b">
-        <div>
-          <img src="pic.png" alt="" />
+        <div className="w-12 h-12 rounded-full overflow-hidden">
+          <img src={friend?.friendImg} alt="" />
         </div>
         <div className="flex flex-col justify-center">
           <h2 className="font-secondary font-semibold text-lg text-white">
-            Paula Mora
+            {friend?.friendName}
           </h2>
         </div>
         <button className="ml-auto flex gap-5 items-center text-xl text-white">

@@ -35,7 +35,6 @@ function Chat() {
       setloading(false);
     });
   }, []);
-  console.log(friendtList);
   return (
     <div className="flex w-full h-screen">
       <div className="h-full bg-slate-200 flex flex-col gap-4 p-5 w-2/5">
