@@ -89,7 +89,7 @@
   @apply text-[#828E9E];
 }
 .input-place {
-  @apply flex flex-row items-center bg-[#40414F] h-10 w-full gap-[5px] border ml-2.5 mt-[15px] rounded-[7px] border-solid border-[#2E2F3A];
+  @apply flex flex-row items-center bg-[#40414F] h-10 w-full gap-[5px] border ml-2.5 mt-[5px] rounded-[7px] border-solid border-[#2E2F3A];
 }
 .send {
   @apply w-full h-[30px] bg-[none] flex items-center justify-end cursor-pointer;
@@ -597,6 +597,8 @@ p {
 .section-center p span:nth-child(2):after {
   opacity: 0;
 }
- 
+  .chatbox {
+    @apply bg-[#343541] flex flex-col rounded-lg h-[calc(100%-100px)];
+  }
  
 

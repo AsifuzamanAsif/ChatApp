@@ -1,7 +1,7 @@
 import React from "react";
 function ChatList() {
   return (
-    <div className="flex gap-4 w-[400px] mt-5">
+    <div className="flex gap-4 mt-5 items-center">
       <div>
         <img src="pic.png" alt="" />
       </div>

@@ -1,13 +1,16 @@
-import { getDatabase, onValue, ref, set } from "firebase/database";
+import { getDatabase, onValue, push, ref, set } from "firebase/database";
 import { useEffect, useState } from "react";
 import { IoMdMore } from "react-icons/io";
 import { MdOutlineCancel } from "react-icons/md";
 import { useSelector } from "react-redux";
 function GroupItems({ data, myGroup }) {
-  const [show, setShow] = useState(false);
   const db = getDatabase();
   const user = useSelector((state) => state.userSlice.user);
   const [friendtList, setfriendList] = useState([]);
+  const [groupmemberList, setGroupMemberList] = useState([]);
+  const [show, setShow] = useState(false);
+  const [showAddmember, setShowAddmember] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
   const handelClick = () => {
     if (myGroup) {
       setShow(true);
@@ -40,22 +43,33 @@ function GroupItems({ data, myGroup }) {
   }, []);
 
   const handelAdd = (data, friend) => {
-    console.log(data);
-    console.log(friend);
-
-    set(ref(db, "group/" + data.key), {
+    set(push(ref(db, "groupmembers/")), {
       groupName: data.groupName,
+      groupId: data.key,
       createBy: data.createBy,
       createById: data.createById,
-      members: [
-        {
-          friendName: friend.friendName,
-          friendId: friend.friendId,
-          friendImg: friend.friendImg,
-        },
-      ],
+      memberName: friend.friendName,
+      memberId: friend.friendId,
+      memberImg: friend.friendImg,
     });
   };
+
+  useEffect(() => {
+    let arr = [];
+    const starCountRef = ref(db, "groupmembers/");
+    onValue(starCountRef, (snapshot) => {
+      snapshot.forEach((item) => {
+        if (data.key == item.val().groupId) {
+          arr.push({ ...item.val(), key: item.key });
+        }
+      });
+      setGroupMemberList(arr);
+      // setloading(false);
+    });
+  }, []);
+
+  console.log(groupmemberList);
+
   return (
     <div>
       {show && (
@@ -64,7 +78,36 @@ function GroupItems({ data, myGroup }) {
             <button onClick={() => setShow(false)} className="text-xl">
               <MdOutlineCancel />
             </button>
-            <p className="text-center font-xxl border-b pb-2 mb-2">
+            <br />
+            <button
+              onClick={() => {
+                setShowInfo(true);
+                setShow(false);
+              }}
+              className="titel text-center text-xl border-b pb-2 mb-2"
+            >
+              Group Info
+            </button>
+            <br />
+            <button
+              onClick={() => {
+                setShowAddmember(true);
+                setShow(false);
+              }}
+              className="title text-center text-xl  border-b pb-2 mb-2"
+            >
+              Add Friends
+            </button>
+          </div>
+        </div>
+      )}
+      {showAddmember && (
+        <div className="w-full h-full absolute top-0 left-0 bg-[rgba(0,0,0,0.5)] rounded-2xl flex justify-center items-center">
+          <div className="bg-white text-primary px-6 py-4 rounded-xl">
+            <button onClick={() => setShowAddmember(false)} className="text-xl">
+              <MdOutlineCancel />
+            </button>
+            <p className="text-center text-xl border-b pb-2 mb-2">
               Add Friends
             </p>
             {friendtList.length > 0 ? (
@@ -88,6 +131,40 @@ function GroupItems({ data, myGroup }) {
               ))
             ) : (
               <p className="text-center">No Friends Available</p>
+            )}
+          </div>
+        </div>
+      )}
+      {showInfo && (
+        <div className="w-full h-full absolute top-0 left-0 bg-[rgba(0,0,0,0.5)] rounded-2xl flex justify-center items-center">
+          <div className="bg-white text-primary px-6 py-4 rounded-xl">
+            <button onClick={() => setShowInfo(false)} className="text-xl">
+              <MdOutlineCancel />
+            </button>
+            <p className="text-center text-xl border-b pb-2 mb-2">
+              {data?.groupName}
+            </p>
+            {groupmemberList.length > 0 ? (
+              groupmemberList.map((item) => (
+                <div key={item.key} className="flex gap-4">
+                  <div className="w-12 h-12 rounded-full overflow-hidden">
+                    <img src={item?.memberImg} alt="" />
+                  </div>
+                  <div className="flex flex-col justify-center">
+                    <h2 className="font-secondary font-semibold text-lg">
+                      {item?.memberName}
+                    </h2>
+                  </div>
+                  <button
+                    onClick={() => handelAdd(data, item)}
+                    className="py-2 px-4 bg-primary rounded-xl text-white"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))
+            ) : (
+              <p className="text-center">No Member Available</p>
             )}
           </div>
         </div>

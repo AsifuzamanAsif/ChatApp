@@ -21,7 +21,7 @@ function Groups() {
   }, []);
 
   return (
-    <div className="w-1/3 p-4 rounded-2xl bg-white">
+    <div className="w-1/3 p-4 rounded-2xl bg-white shadow-lg overflow-hidden">
       <Title title="Group" />
       <div className="py-3 px-3 border-2 border-slate-400 rounded-lg w-full flex items-center gap-4">
         <CiSearch className="text-2xl" />
@@ -31,7 +31,7 @@ function Groups() {
           placeholder="Search"
         />
       </div>
-      <div className="flex flex-col gap-4 mt-5">
+      <div className="flex flex-col gap-4 mt-5 overflow-y-scroll">
         {loading ? (
           <div className="loader m-auto">
             <span className="loader-text">loading</span>

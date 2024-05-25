@@ -1,6 +1,6 @@
 import { createRef, useState } from "react";
 import { AiFillEdit } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IoMdMore } from "react-icons/io";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";

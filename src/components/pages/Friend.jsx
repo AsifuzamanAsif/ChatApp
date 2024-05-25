@@ -35,9 +35,11 @@ function Friend() {
       setloading(false);
     });
   }, []);
+
+
   return (
     <div className="w-full p-4 bg-gray-300 px-80">
-      <Title title="Friend" />
+      <Title title="Friends" />
       <div className="py-3 px-3 border-2 border-slate-400 rounded-lg w-full flex items-center gap-4">
         <CiSearch className="text-2xl" />
         <input

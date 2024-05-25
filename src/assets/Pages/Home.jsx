@@ -10,12 +10,12 @@ function Home() {
   console.log("userFromLocal=========>", userFromLocal);
   return (
     <div className="bg-slate-200 w-full">
-      <div className="flex gap-6 py-6 px-6">
+      <div className="flex gap-6 py-6 px-6 h-1/2">
         <MyGroupe />
         <Groups />
         <Friends />
       </div>
-      <div className="flex gap-6 py-6 px-6">
+      <div className="flex gap-6 py-6 px-6 h-1/2">
         <Peoples />
         <FrendRequests />
         <BlockList />

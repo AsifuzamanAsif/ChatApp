@@ -15,11 +15,11 @@ function FriendsItem({ data }) {
       blockByprofile: user.photoURL,
       blockId: data.friendId,
       blockName: data.friendName,
-      blockprofile: data.friendImg
+      blockprofile: data.friendImg,
     });
       remove(ref(db, "friends/" + data.key));
   }
-  return (
+return (
     <div className="flex gap-4">
       <div className="w-12 h-12 rounded-full overflow-hidden">
         <img src={data?.friendImg} alt="" />

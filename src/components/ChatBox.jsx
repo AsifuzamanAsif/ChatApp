@@ -4,8 +4,8 @@ import { RiVidiconLine } from "react-icons/ri";
 import { IoMdCall } from "react-icons/io";
 function ChatBox() {
   return (
-    <div className="container bg-[#343541]">
-      <div className="flex gap-4 px-4 py-4">
+    <div className="chatbox bg-[#343541] w-3/5 mx-8 mt-6">
+      <div className="flex p-3 gap-4 items-center border-b">
         <div>
           <img src="pic.png" alt="" />
         </div>

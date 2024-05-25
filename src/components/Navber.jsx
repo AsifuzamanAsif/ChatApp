@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import { IoChatboxOutline } from "react-icons/io5";
 import { IoPeopleOutline } from "react-icons/io5";
@@ -8,7 +8,8 @@ import { CgMoreVerticalO } from "react-icons/cg";
 import { useSelector } from "react-redux";
 function Navber() {
   const user = useSelector((state) => state.userSlice.user);
-  console.log(user);
+  const location = useLocation().pathname;
+  console.log(location);
   return (
     <nav className="w-48 min-h-screen bg-slate-300 shadow-[6px_0px_10px_-7px_rgba(0,0,0,0.62)];">
       <div>
@@ -20,12 +21,14 @@ function Navber() {
           />
         </Link>
       </div>
-      <div className="pl-8">
+      <div className="pl-6">
         <ul className="flex flex-col gap-4 text-lg font-secondary font-semibold ">
           <li>
             <Link
               to="/"
-              className="flex items-center gap-3 py-3 px-3 bg-primary text-white rounded-lg w-fit"
+              className={`${
+                location == "/" && " bg-primary text-white "
+              } flex items-center gap-3 py-3 px-3 rounded-lg w-fit`}
             >
               <FaHome />
               <span>Home</span>
@@ -34,7 +37,9 @@ function Navber() {
           <li>
             <Link
               to="/Chat"
-              className="flex items-center gap-3 py-3 px-3 rounded-lg w-fit{ hover:bg-primary text-white rounded-lg}"
+              className={`${
+                location == "/Chat" && "bg-primary text-white"
+              } flex items-center gap-3 py-3 px-3 rounded-lg w-fit`}
             >
               <IoChatboxOutline />
               <span>Chat</span>
@@ -43,7 +48,9 @@ function Navber() {
           <li>
             <Link
               to="/Group"
-              className="flex items-center gap-3 py-3 px-3 rounded-lg w-fit"
+              className={`${
+                location == "/Group" && "bg-primary text-white"
+              } flex items-center gap-3 py-3 px-3 rounded-lg w-fit`}
             >
               <IoPeopleOutline />
               Group
@@ -52,7 +59,9 @@ function Navber() {
           <li>
             <Link
               to="/Friend"
-              className="flex items-center gap-3 py-3 px-3 rounded-lg w-fit"
+              className={`${
+                location == "/Friend" && "bg-primary text-white"
+              } flex items-center gap-3 py-3 px-3 rounded-lg w-fit`}
             >
               <RiAccountCircleLine />
               Friends
@@ -61,16 +70,18 @@ function Navber() {
           <li>
             <Link
               to="/People"
-              className="flex items-center gap-3 py-3 px-3 rounded-lg w-fit"
+              className={`${
+                location == "/People" && "bg-primary text-white"
+              } flex items-center gap-3 py-3 px-3 rounded-lg w-fit`}
             >
               <CgMoreVerticalO />
               People
             </Link>
           </li>
-          <li className="flex">
+          <li className="flex mt-40">
             <Link
               to="/User"
-              className="flex items-center gap-2 py-3 pt-60 rounded-lg  w-fit"
+              className="flex items-center gap-3 py-3 px-3 rounded-lg w-fit"
             >
               <img
                 src={user?.photoURL}
