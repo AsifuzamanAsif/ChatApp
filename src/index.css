@@ -53,34 +53,12 @@
 .sender-area {
   @apply bg-[#343541] w-full h-[50px] flex;
 }
-.message {
-  @apply w-full h-[50px];
-}
-.message.one,
-.message.three,
-.message.five,
-.message.seven,
-.message.nine,
-.message.eleven,
-.message.thirteen,
-.message.fifteen {
-  @apply bg-[#2E2F3A];
-}
-.message.two,
-.message.four,
-.message.six,
-.message.eight,
-.message.ten,
-.message.twelve,
-.message.fourteen,
-.message.sixteen {
-  @apply bg-[#343541];
-}
+
 .send-img {
   @apply w-[30px];
 }
 .send-input {
-  @apply flex h-10 w-[230px] text-[white] text-ellipsis whitespace-nowrap overflow-hidden ml-[5px] rounded-[7px] border-[none];
+  @apply flex h-10 w-full text-[white] text-ellipsis whitespace-nowrap overflow-hidden ml-[5px] rounded-[7px] border-[none];
   outline: none;
   background: none;
   background: none;
@@ -89,10 +67,10 @@
   @apply text-[#828E9E];
 }
 .input-place {
-  @apply flex flex-row items-center bg-[#40414F] h-10 w-full gap-[5px] border ml-2.5 mt-[5px] rounded-[7px] border-solid border-[#2E2F3A];
+  @apply flex flex-row items-center bg-[#40414F] h-10 w-full gap-[5px] border m-2.5 mt-[5px] rounded-[7px] border-solid border-[#2E2F3A];
 }
 .send {
-  @apply w-full h-[30px] bg-[none] flex items-center justify-end cursor-pointer;
+  @apply h-[30px] bg-[none] flex items-center justify-end cursor-pointer;
 }
 .send-icon {
   @apply w-[17px];

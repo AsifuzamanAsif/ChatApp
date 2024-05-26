@@ -1,18 +1,20 @@
-import React from "react";
-
-function Grouplist() {
+function Grouplist({data}) {
+  const handelClick = () => {
+     console.log(data);
+   };
   return (
-    <div className="flex gap-4 w-[400px] mt-5">
-      <div>
+    <div
+      onClick={handelClick}
+      className="flex gap-4 mt-5 items-center cursor-pointer border-b"
+    >
+      <div className="w-12 h-12 rounded-full overflow-hidden">
         <img src="group.png" alt="" />
       </div>
       <div>
         <button className="font-secondary font-semibold text-lg">
-          Johnson & Johnson
+          {data?.groupName}
         </button>
-        <p className="font-secondary text-brand font-normal text-sm">
-          Love You.....
-        </p>
+        <p> Admin: {data.createBy}</p>
       </div>
       <p className="ml-auto font-secondary font-normal text-sm text-brand">
         10:30 PM

@@ -2,13 +2,15 @@ import { IoMdMore } from "react-icons/io";
 import { RiVidiconLine } from "react-icons/ri";
 import { IoMdCall } from "react-icons/io";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 function ChatBox() {
+  const [chat, setChat] = useState("")
   const friend = useSelector(
     (action) => action.currentChatfriendInfo.friendInfo
   );
-  console.log(friend);
+  console.log(chat);
   return (
-    <div className="chatbox bg-[#343541] w-3/5 mx-8 mt-6">
+    <div className="chatbox bg-[#343541] w-3/5 pb-4 mx-8 mt-8">
       <div className="flex p-3 gap-4 items-center border-b">
         <div className="w-12 h-12 rounded-full overflow-hidden">
           <img src={friend?.friendImg} alt="" />
@@ -25,26 +27,30 @@ function ChatBox() {
         </button>
       </div>
       <div className="nav-bar"></div>
-      <div className="messages-area">
-        <div className="message one" />
-        <div className="message two" />
-        <div className="message three" />
-        <div className="message four" />
-        <div className="message five" />
-        <div className="message six" />
-        <div className="message seven" />
-        <div className="message eight" />
-        <div className="message nine" />
-        <div className="message ten" />
-        <div className="message eleven" />
-        <div className="message twelve" />
-        <div className="message thirteen" />
-        <div className="message fourteen" />
-        <div className="message fifteen" />
+      <div className="h-full px-4">
+        {/* sender box */}
+        <div className="my-2 max-w-[60%] w-fit rounded-xl rounded-br-sm py-2 px-3 bg-white text-primary ml-auto">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
+            voluptatibus distinctio cupiditate doloribus consequatur. Laborum
+            reiciendis corrupti aut quod possimus illum temporibus ducimus
+            repellendus eius. Commodi nulla dolor a ratione?
+          </p>
+        </div>
+        {/* Reciver box */}
+        <div className="my-2 max-w-[60%] w-fit rounded-xl rounded-bl-sm py-2 px-3 bg-white text-primary">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
+            explicabo sequi autem dolore hic! Facilis consequatur perferendis
+            eum nobis natus nemo consectetur tenetur harum, animi totam, nam
+            itaque voluptatem? Voluptatibus.
+          </p>
+        </div>
       </div>
       <div className="sender-area">
         <div className="input-place">
           <input
+            onChange={(e) => setChat(e.target.value)}
             placeholder="Send a message."
             className="send-input"
             type="text"

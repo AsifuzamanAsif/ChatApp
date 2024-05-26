@@ -9,8 +9,7 @@ function ChatList({ data }) {
   return (
     <div
       onClick={handelClick}
-      className="flex gap-4 mt-5 items-center cursor-pointer border-b"
-    >
+      className="flex gap-4 mt-5 items-center cursor-pointer border-b">
       <div className="w-12 h-12 rounded-full overflow-hidden">
         <img src={data?.friendImg} alt="" />
       </div>
