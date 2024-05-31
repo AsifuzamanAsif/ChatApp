@@ -5,6 +5,7 @@ function ChatList({ data }) {
   const disptch = useDispatch();
   const handelClick = () => {
     disptch(currentFriendInfo(data));
+    localStorage.setItem("FriendInfo", JSON.stringify(data));
   };
   return (
     <div
