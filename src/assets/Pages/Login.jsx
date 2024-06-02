@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   getAuth,
@@ -8,12 +8,13 @@ import {
 } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
 import { ToastContainer, toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loggeduser } from "../../Slice/userSlice";
 const Login = () => {
   const disptch = useDispatch();
   const auth = getAuth();
   const db = getDatabase();
+  const user = useSelector((state) => state.userSlice.user);
   let navegite = useNavigate();
   const [emailError, setemailError] = useState("");
   const [passwordError, setpasswordError] = useState("");
@@ -112,6 +113,13 @@ const Login = () => {
         console.log(errorMessage);
       });
   };
+
+  useEffect(() => {
+    if (user) {
+      return navegite("/");
+    }
+  }, []);
+
   return (
     <section className=" flex justify-center ">
       <ToastContainer />
@@ -192,7 +200,7 @@ const Login = () => {
             </Link>
           </p>
           <button onClick={handelGoogle} className="w-60">
-            <img src="/google.png" alt="google" className="w-full"/>
+            <img src="/google.png" alt="google" className="w-full" />
           </button>
         </div>
       </div>

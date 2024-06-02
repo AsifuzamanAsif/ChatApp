@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { getDatabase, onValue, push, ref, set } from "firebase/database";
 import { CiSearch } from "react-icons/ci";
@@ -8,7 +9,7 @@ function Friend() {
   const db = getDatabase();
   const user = useSelector((state) => state.userSlice.user);
   const [friendtList, setfriendList] = useState([]);
-    const [loading, setloading] = useState(true);
+  const [loading, setloading] = useState(true);
 
   useEffect(() => {
     let arr = [];
@@ -35,7 +36,6 @@ function Friend() {
       setloading(false);
     });
   }, []);
-
 
   return (
     <div className="w-full p-4 bg-gray-300 px-80">

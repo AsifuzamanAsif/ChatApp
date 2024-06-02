@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getDatabase, onValue, push, ref, set } from "firebase/database";
+import { getDatabase, onValue, ref } from "firebase/database";
 import Title from "./Title";
 import { CiSearch } from "react-icons/ci";
 import FriendsItem from "./FriendsItem";
@@ -21,14 +21,14 @@ function Friends() {
             friendId: item.val().reciverId,
             friendName: item.val().reciverName,
             friendImg: item.val().reciverprofile,
-            key: item.key,
+            key: item.key
           });
         } else if (item.val().reciverId == user.uid) {
           arr.push({
             friendId: item.val().friendId,
             friendName: item.val().friendName,
             friendImg: item.val().friendprofile,
-            key: item.key,
+            key: item.key
           });
         }
       });

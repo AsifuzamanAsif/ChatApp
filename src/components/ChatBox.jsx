@@ -2,13 +2,71 @@ import { IoMdMore } from "react-icons/io";
 import { RiVidiconLine } from "react-icons/ri";
 import { IoMdCall } from "react-icons/io";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getDatabase, onValue, push, ref, set } from "firebase/database";
 function ChatBox() {
-  const [chat, setChat] = useState("")
+  const db = getDatabase();
+  const user = useSelector((state) => state.userSlice.user);
   const friend = useSelector(
     (action) => action.currentChatfriendInfo.friendInfo
   );
-  console.log(chat);
+  const [chat, setChat] = useState("");
+  const [reciverMessage, setReciverMassage] = useState([]);
+  const [realtime, setRealtime] = useState(false);
+  function formatAMPM(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? "pm" : "am";
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    var strTime = hours + ":" + minutes + " " + ampm;
+    return strTime;
+  }
+
+  const handelSend = () => {
+    if (!chat) {
+      console.log("msg");
+    } else {
+      set(push(ref(db, "singlechat")), {
+        senderID: user.uid,
+        message: chat,
+        reciverID: friend.friendId,
+        time: formatAMPM(new Date()),
+      }).then(() => {
+        setChat("");
+        setRealtime(!realtime);
+      });
+    }
+  };
+
+  useEffect(() => {
+    let arr = [];
+    onValue(ref(db, "singlechat/"), (snapshot) => {
+      snapshot.forEach((item) => {
+        if (
+          item.val().senderID == user.uid &&
+          item.val().reciverID == friend.friendId
+        ) {
+          arr.push({ ...item.val(), key: item.key });
+        } else if (
+          item.val().reciverID == user.uid &&
+          item.val().senderID == friend.friendId
+        ) {
+          arr.push({ ...item.val(), key: item.key });
+        }
+      });
+      setReciverMassage(arr);
+    });
+  }, [friend, realtime]);
+
+  const handelkey = (e) => {
+    console.log(e.code);
+    if (e.code == "NumpadEnter") {
+      handelSend();
+    }
+  };
+
   return (
     <div className="chatbox bg-[#343541] w-3/5 pb-4 mx-8 mt-8">
       <div className="flex p-3 gap-4 items-center border-b">
@@ -29,33 +87,36 @@ function ChatBox() {
       <div className="nav-bar"></div>
       <div className="h-full px-4">
         {/* sender box */}
-        <div className="my-2 max-w-[60%] w-fit rounded-xl rounded-br-sm py-2 px-3 bg-white text-primary ml-auto">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
-            voluptatibus distinctio cupiditate doloribus consequatur. Laborum
-            reiciendis corrupti aut quod possimus illum temporibus ducimus
-            repellendus eius. Commodi nulla dolor a ratione?
-          </p>
-        </div>
-        {/* Reciver box */}
-        <div className="my-2 max-w-[60%] w-fit rounded-xl rounded-bl-sm py-2 px-3 bg-white text-primary">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
-            explicabo sequi autem dolore hic! Facilis consequatur perferendis
-            eum nobis natus nemo consectetur tenetur harum, animi totam, nam
-            itaque voluptatem? Voluptatibus.
-          </p>
-        </div>
+        {reciverMessage.map((item) =>
+          item.senderID == user.uid ? (
+            <div key={item.key} className="flex flex-col items-end my-2">
+              <div className="max-w-[60%] w-fit rounded-xl rounded-br-sm py-2 px-3 bg-white text-primary ml-auto">
+                <p>{item.message}</p>
+              </div>
+              <p className="text-white">{item?.time}</p>
+            </div>
+          ) : (
+            <div key={item.key} className="flex flex-col items-start my-2">
+              <div className="max-w-[60%] w-fit rounded-xl rounded-bl-sm py-2 px-3 bg-white text-primary">
+                <p>{item.message}</p>
+              </div>
+              <p className="text-white">{item?.time}</p>
+            </div>
+          )
+        )}
       </div>
       <div className="sender-area">
         <div className="input-place">
           <input
+            onKeyPress={handelkey}
+            id="my input"
             onChange={(e) => setChat(e.target.value)}
             placeholder="Send a message."
             className="send-input"
             type="text"
+            value={chat}
           />
-          <div className="send">
+          <button onClick={handelSend} className="send">
             <svg
               className="send-icon"
               version="1.1"
@@ -77,7 +138,7 @@ function ChatBox() {
                 </g>
               </g>
             </svg>
-          </div>
+          </button>
         </div>
       </div>
       <div />

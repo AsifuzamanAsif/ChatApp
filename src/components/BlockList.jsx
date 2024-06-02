@@ -23,7 +23,6 @@ function BlockList() {
       setloading(false);
     });
   }, []);
-  console.log(blockList);
 
   return (
     <div className="w-1/3 p-4 rounded-2xl bg-white">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   getAuth,
@@ -8,8 +8,10 @@ import {
 } from "firebase/auth";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import { useSelector } from "react-redux";
 const registration = () => {
   const auth = getAuth();
+  const user = useSelector((state) => state.userSlice.user);
   const navigate = useNavigate();
   let [name, setName] = useState("");
   let [email, setemail] = useState("");
@@ -69,6 +71,13 @@ const registration = () => {
         });
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      return navigate("/");
+    }
+  }, []);
+
   return (
     <section className=" bg-white flex justify-center ">
       <ToastContainer />
@@ -173,7 +182,6 @@ const registration = () => {
               Log In
             </Link>
           </p>
-          
         </div>
       </div>
     </section>

@@ -68,8 +68,6 @@ function GroupItems({ data, myGroup }) {
     });
   }, []);
 
-  console.log(groupmemberList);
-
   return (
     <div>
       {show && (

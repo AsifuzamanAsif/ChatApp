@@ -78,40 +78,7 @@
 .wrap {
   @apply w-full max-w-xs mx-auto my-0 mt-5 h-72 rounded-md;
 }
-/* .profile {
-  @apply text-center;
-}
-.profile {
-  @apply flex items-center justify-center gap-3;
-}
-.photo {
-  @apply rounded-[50%];
-}
-.profile_name {
-  @apply font-primary block;
-}
-.at {
-  @apply text-[13px];
-}
-.links ul {
-  @apply m-0 p-0;
-  list-style: none;
-}
-.links ul li {
-  @apply mx-0 my-3.5;
-}
-.link {
-  @apply block bg-[#9466FF] text-center no-underline rounded transition-[ease] duration-[all] delay-[0.3s] text-white p-3.5 hover:opacity-90;
-}
-.card {
-  @apply bg-white rounded p-2.5;
-}
-.card h3 {
-  @apply text-[#202024] m-0;
-}
-.card p {
-  @apply text-[13px] text-[#202024] mx-0 my-[5px];
-} */
+
 .screen:hover .background {
   @apply opacity-50;
 }
@@ -579,4 +546,37 @@ p {
     @apply bg-[#343541] flex flex-col rounded-lg h-[calc(100%-100px)];
   }
  
+/*
+  Based on TailwindCSS recommendations,
+  consider using classes instead of the `@apply` directive
+  @see https://tailwindcss.com/docs/reusing-styles#avoiding-premature-abstraction
+*/
+.Btn {
+  @apply flex items-center justify-start w-[45px] h-[45px] cursor-pointer relative overflow-hidden duration-[0.3s] shadow-[2px_2px_10px_rgba(0,0,0,0.199)] bg-primary rounded-[50%] border-[none] hover:w-[125px] hover:duration-[0.3s] hover:rounded-[40px] active:translate-x-0.5 active:translate-y-0.5;
+}
+
+/* plus sign */
+.sign {
+  @apply w-full duration-[0.3s] flex items-center justify-center;
+}
+.sign svg {
+  @apply w-[17px];
+}
+.sign svg path {
+  @apply fill-[white];
+}
+/* text */
+.text {
+  @apply absolute w-[0%] opacity-0 text-[white] text-[1.2em] font-semibold duration-[0.3s] right-[0%];
+}
+/* hover effect on button width */
+.Btn:hover .sign {
+  @apply w-[30%] duration-[0.3s] pl-5;
+}
+/* hover effect button's text */
+.Btn:hover .text {
+  @apply opacity-100 w-[70%] duration-[0.3s] pr-2.5;
+}
+/* button click effect*/
+
 
